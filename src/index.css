@@ -1,0 +1,38 @@
+
+.minesweeper-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+    gap: 2px;
+  }
+  
+  .column {
+    display: flex;
+  }
+  
+  .cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+  }
+  
+  .cell.defused {
+    background-color: #ddd;
+  }
+  
+  .cell.flagged {
+    background-color: #f0f0f0;
+  }
+  
+  .cell.exploded {
+    background-color: #ff9999;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  
