@@ -11,8 +11,11 @@ function BoardComponent({level}){
   const [board, setBoard] = useState(null);
 
   useEffect(() => {
+    if(board){
+      return;
+    }
     const fetchData = async () =>{
-      const api = new ApiClient(`https://quiet-kangaroo-2938f6.netlify.app/`);
+      const api = new ApiClient(`http://localhost:9988/`);
       try{
         const data = await api.getLevel(level);
         setBoard(new Board(data.rows, data.columns, data.mines, level));
@@ -52,15 +55,16 @@ function BoardComponent({level}){
   // board.exploded(row, column) //cambia el estado de la celda a exploded
   function handleClick(row, column){
     const cell = board.getCellBy(row, column);
+    // const currentBoard = {...new Board(), ...board};
     console.log(cell)
     if(!cell.defused && !cell.exploded && !cell.flagged){
       if(cell.hasMine){
         console.log('Tiene mina')
-        board.exploded(row, column);
+        setBoard(board.exploded(row, column));
         console.log(cell)
       }else{
         console.log('No tiene mina')
-        board.defuse(row, column)
+        setBoard(board.defuse(row, column));
         console.log(cell)
       }
     }
